@@ -1,0 +1,85 @@
+{
+  "intents": [
+    {
+      "intent": "CharacterIntent",
+      "slots": [
+        {
+          "name": "Character",
+          "type": "LIST_OF_CHARACTERS"
+        }
+      ]
+    },
+    {
+      "intent": "PlayIntent",
+      "slots": [
+        {
+          "name": "Play",
+          "type": "LIST_OF_PLAYS"
+        }
+      ]
+    },
+    {
+      "intent": "LineIntent",
+      "slots": [
+        {
+          "name": "Word1",
+          "type": "LIST_OF_WORDS"
+        },
+        {
+          "name": "Word2",
+          "type": "LIST_OF_WORDS"
+        },
+        {
+          "name": "Word3",
+          "type": "LIST_OF_WORDS"
+        },
+        {
+          "name": "Word4",
+          "type": "LIST_OF_WORDS"
+        },
+        {
+          "name": "Word5",
+          "type": "LIST_OF_WORDS"
+        },
+        {
+          "name": "Word6",
+          "type": "LIST_OF_WORDS"
+        },
+        {
+          "name": "Word7",
+          "type": "LIST_OF_WORDS"
+        },
+        {
+          "name": "Word8",
+          "type": "LIST_OF_WORDS"
+        },
+        {
+          "name": "Word9",
+          "type": "LIST_OF_WORDS"
+        }
+      ]
+    },
+    {
+      "intent": "SceneIntent",
+      "slots": [
+        {
+          "name": "Act",
+          "type": "AMAZON.NUMBER"
+        },
+        {
+          "name": "Scene",
+          "type": "AMAZON.NUMBER"
+        }
+      ]
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    }
+  ]
+}

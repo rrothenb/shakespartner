@@ -1,0 +1,17 @@
+CharacterIntent {Character}
+CharacterIntent I'll be playing {Character}
+CharacterIntent I'll be playing the role of {Character}
+CharacterIntent I'll be reading for {Character}
+CharacterIntent I'll be reading the part of {Character}
+CharacterIntent I want to be {Character}
+CharacterIntent I will be playing the role of {Character}
+CharacterIntent I will be playing {Character}
+CharacterIntent I will be reading for {Character}
+CharacterIntent I will be reading the part of {Character}
+
+PlayIntent {Play}
+
+SceneIntent Act {Act} Scene {Scene}
+SceneIntent {Act} {Scene}
+
+LineIntent {Word1} {Word2} {Word3} {Word4} {Word5} {Word6} {Word7} {Word8} {Word9}
