@@ -125,7 +125,7 @@ class ShakesPartnerSpeechletSpec extends Specification {
       def response3 = run("LineIntent", [Words: "Yo. What up?"])
 
       then:
-      response3.outputSpeech.text == "Go back and memorize your line correctly"
+      response3.outputSpeech.text == "Nope.  You may want to study the text a little bit more"
    }
 
    def "If you get the line only slightly wrong it will accept it"() {
@@ -301,9 +301,15 @@ class ShakesPartnerSpeechletSpec extends Specification {
    def "When a line doesn't pass the matching criteria, let the user know if it was close, medium or far"() {
       when:
       run("CharacterIntent", [Character: "bernardo"])
+      run("SceneIntent", [Act: "1", Scene: "1"])
+      def response3 = run("LineIntent", [Words: "Looks like I got here just in time for some major party action"])
+      def response4 = run("LineIntent", [Words: "Anybody there?  Guys?"])
+      def response5 = run("LineIntent", [Words: "Who goes there"])
 
       then:
-      false
+      response3.outputSpeech.text == "Not even close.  Go back and memorize your line correctly"
+      response4.outputSpeech.text == "Nope.  You may want to study the text a little bit more"
+      response5.outputSpeech.text == "Close but not quite.  Try saying your line again"
    }
 
    def "When a character isn't recognized, return the three closest characters"() {

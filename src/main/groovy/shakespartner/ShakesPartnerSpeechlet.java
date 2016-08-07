@@ -234,7 +234,7 @@ public class ShakesPartnerSpeechlet implements Speechlet  {
             int distance = StringUtils.getLevenshteinDistance(yourLineDM, wordsDM);
             log.info("Distance :" + distance);
             log.info("length: " + words.length());
-            int percentDistance = distance*100/words.length();
+            int percentDistance = distance*100/yourLine.length();
             if (percentDistance < 10) {
                 session.setAttribute("lineNumber", lineNumber+1);
                 List<String> nextLines = new ArrayList<String>();
@@ -251,8 +251,18 @@ public class ShakesPartnerSpeechlet implements Speechlet  {
                 }
             }
             else {
+                if (percentDistance < 25) {
+                    return newAskResponse(
+                            "Close but not quite.  Try saying your line again",
+                            "Say your line");
+                }
+                else if (percentDistance < 55) {
+                    return newAskResponse(
+                            "Nope.  You may want to study the text a little bit more",
+                            "Say your line");
+                }
                 return newAskResponse(
-                        "Go back and memorize your line correctly",
+                        "Not even close.  Go back and memorize your line correctly",
                         "Say your line");
             }
         }
