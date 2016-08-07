@@ -308,10 +308,11 @@ class ShakesPartnerSpeechletSpec extends Specification {
 
    def "When a character isn't recognized, return the three closest characters"() {
       when:
-      run("CharacterIntent", [Character: "bernardo"])
+      def response1 = run("CharacterIntent", [Character: "beer narco"])
 
       then:
-      false
+      response1.outputSpeech.text == "beer narco is not a character that I recognize.  The closest matches I have are bernardo, porter, and horner." +
+            "  Please try saying your character again."
    }
 
    def "When prompted for a character, the user should be able to ask for the list of characters in a given play"() {

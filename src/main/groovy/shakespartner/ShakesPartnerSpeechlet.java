@@ -106,8 +106,9 @@ public class ShakesPartnerSpeechlet implements Speechlet  {
                 List<Play> plays = Characters.getPlays(character);
                 log.info("plays: " + plays);
                 if (plays == null) {
+
                     return newAskResponse(
-                            character + " is not a character that I recognize.  Please try saying your character again.",
+                            character + " is not a character that I recognize.  The closest matches I have are " + Characters.getClosestCharacters(character) + ".  Please try saying your character again.",
                             "I don't recognize that.  You need to pick a character for whom you'll be reading.");
                 }
                 else if (plays.size() > 1) {
