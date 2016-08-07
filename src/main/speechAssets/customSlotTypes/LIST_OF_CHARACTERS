@@ -25,7 +25,6 @@ alencon
 alexander
 alexas
 alice
-all
 all citizens
 all conspirators
 all ladies
@@ -34,13 +33,14 @@ all servants
 all the goths
 all the lords
 all the people
+all
 alonso
 amiens
 andromache
 angelo
 angus
-anne
 anne page
+anne
 another
 antigonus
 antiochus
@@ -74,8 +74,8 @@ barnardine
 bassanio
 basset
 bassianus
-bastard
 bastard of orleans
+bastard
 bates
 bawd
 beadle
@@ -99,10 +99,10 @@ boatswain
 bolingbroke
 bona
 borachio
-both
 both citizens
 both murderers
 both tribunes
+both
 bottom
 boult
 bourbon
@@ -130,10 +130,10 @@ caphis
 captain
 capucius
 capulet
-cardinal
 cardinal campeius
 cardinal pandulph
 cardinal wolsey
+cardinal
 carrier
 casca
 cassandra
@@ -154,8 +154,8 @@ chiron
 chorus
 christopher
 cicero
-cinna
 cinna the poet
+cinna
 citizen
 citizens
 clarence
@@ -210,9 +210,9 @@ dick
 diomedes
 dion
 dionyza
-doctor
 doctor butts
 doctor caius
+doctor
 dogberry
 dolabella
 domitius enobarbus
@@ -223,9 +223,8 @@ dorcas
 dorset
 dromio of ephesus
 dromio of syracuse
-duchess
 duchess of york
-duke
+duchess
 duke frederick
 duke of aumerle
 duke of surrey
@@ -235,6 +234,7 @@ duke orsino
 duke senior
 duke solinus
 duke vincentio
+duke
 dull
 dumain
 duncan
@@ -357,13 +357,13 @@ gentleman
 gentlemen
 gentlewoman
 george
-ghost
 ghost of clarence
 ghost of grey
 ghost of hastings
 ghost of lady anne
 ghost of rivers
 ghost of vaughan
+ghost
 girl
 glansdale
 glendower
@@ -428,8 +428,8 @@ iris
 isabella
 jamy
 jaquenetta
-jaques
 jaques de boys
+jaques
 jessica
 jeweller
 joan la pucelle
@@ -447,23 +447,22 @@ katharina
 katharine
 keeper
 kent
-king
 king claudius
-king edward iv
-king henry iv
-king henry v
-king henry vi
-king henry viii
+king edward the fourth
+king henry the eighth
+king henry the fifth
+king henry the fourth
+king henry the sixth
 king john
 king lear
-king lewis xi
+king lewis the eleventh
 king of france
 king philip
-king richard ii
-king richard iii
+king richard the second
+king richard the third
+king
 knight
 knights
-lady
 lady  capulet
 lady anne
 lady capulet
@@ -473,6 +472,7 @@ lady macbeth
 lady macduff
 lady montague
 lady percy
+lady
 laertes
 lafeu
 lancaster
@@ -497,7 +497,6 @@ lincoln
 lion
 lodovico
 longaville
-lord
 lord berkeley
 lord fitzwater
 lord marshal
@@ -506,6 +505,7 @@ lord polonius
 lord ross
 lord stanley
 lord willoughby
+lord
 lords
 lorenzo
 lovel
@@ -532,12 +532,12 @@ mamillius
 man
 marcellus
 marcius
-marcus
 marcus andronicus
+marcus
 mardian
 margarelon
-margaret
 margaret jourdain
+margaret
 maria
 mariana
 marina
@@ -588,16 +588,17 @@ nicholas
 nobleman
 norfolk
 northumberland
+null
 nurse
 nym
 oberon
 octavia
-octavius
 octavius caesar
+octavius
 of auvergne
 of buckingham
 of ephesus
-of king henry vi
+of king henry the sixth
 of prince edward
 of syracuse
 of winchester
@@ -663,10 +664,10 @@ post
 posthumus leonatus
 priam
 priest
-prince
 prince edward
 prince fortinbras
 prince henry
+prince
 princess
 proculeius
 prologue
@@ -677,13 +678,13 @@ publius
 puck
 pursuivant
 pyramus
-queen
 queen elinor
 queen elizabeth
 queen gertrude
 queen isabel
 queen katharine
 queen margaret
+queen
 quince
 quintus
 rambures
@@ -867,8 +868,8 @@ time
 timon
 titania
 titinius
-titus
 titus andronicus
+titus
 touchstone
 townsman
 tranio
@@ -909,9 +910,9 @@ westmoreland
 whitmore
 widow
 wife
-william
 william page
 william stafford
+william
 williams
 woodvile
 worcester

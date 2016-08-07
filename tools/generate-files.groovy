@@ -65,9 +65,6 @@ def convertRomanNumerals = { name ->
           "the twentieth"
     ]
     def matcher = name =~ /.*\b([vxVX]|[ivxIVX][ivxIVX]+)\b.*/
-    println matcher
-    println "'$name'"
-    println matcher.matches()
     if (matcher.matches()) {
         name.replaceFirst(matcher.group(1),words[RomanDigits.parse(matcher.group(1).toUpperCase())])
     }
@@ -95,27 +92,21 @@ for (def entry : result) {
     playName = convertRomanNumerals(playName)
     String text = entry.text_entry
     def (playNumber, sceneNumberPart, lineNumber) = entry.line_number.tokenize('.')
-    println "speaker: $speaker, playName: $playName, text: $text, sceneNumberPart: $sceneNumberPart"
     if (play.playName != playName) {
         play = [playName:playName,
                 playClassName:playName.replaceAll(' ',''),
                 playPackageName: playName.replaceAll(' ','').toLowerCase(),
                 scenes: [:],
                 characterData: [:]]
-        println(play)
         plays << play
         playRefsByName['"' + play.playName.toLowerCase() + '"'] = "\"shakespartner.plays.${play.playClassName}\""
     }
     if (text.startsWith('ACT ')) {
-        println entry
         actNumber = RomanDigits.parse(text.substring(4))
-        println "starting Act " + actNumber
     }
     else if (text.startsWith('SCENE ')) {
-        println entry
         String location = text.replaceFirst('[^.]*. *','')
         sceneNumber = RomanDigits.parse(text.substring(6).replaceFirst('[.:].*$',''))
-        println "starting Scene " + sceneNumber
         scene = [sceneName: "Act${actNumber}Scene${sceneNumber}",
                  playPackageName: play.playClassName.toLowerCase(),
                  location: location,
@@ -123,7 +114,6 @@ for (def entry : result) {
                  sceneNumber: sceneNumber,
                  lines: []]
 
-        println(scene)
         scenes << scene
         play.scenes["\"$actNumber|$sceneNumber\""] = "\"shakespartner.plays.${scene.playPackageName}.Act${actNumber}Scene${sceneNumber}\""
     }
@@ -158,28 +148,20 @@ for (def entry : result) {
     }
 }
 
-println characters
-
-println plays
-println playRefsByName
-
 def playTemplate = getTemplate("PlayTemplate")
 def playsTemplate = getTemplate("PlaysTemplate")
 def sceneTemplate = getTemplate("SceneTemplate")
 def charactersTemplate = getTemplate("CharactersTemplate")
 
 String charactersClass = render(charactersTemplate, [characters: characters])
-println charactersClass
 File charactersFile = new File("../src/main/groovy/shakespartner/Characters.groovy")
 charactersFile.write charactersClass
 
 String playsClass = render(playsTemplate, [plays: playRefsByName])
-println playsClass
 File playsFile = new File("../src/main/groovy/shakespartner/Plays.groovy")
 playsFile.write playsClass
 
 for (def sceneDef : scenes) {
-    println sceneDef
     for (def lineDef : sceneDef.lines) {
         if (lineDef.speaker) {
             lineDef.speaker = '"' + lineDef.speaker + '"'
@@ -187,7 +169,6 @@ for (def sceneDef : scenes) {
         lineDef.text = '"' + lineDef.text + '"'
     }
     String sceneClass = render(sceneTemplate, sceneDef)
-    println sceneClass
     File sceneFileDir = new File("../src/main/groovy/shakespartner/plays/${sceneDef.playPackageName}")
     sceneFileDir.mkdirs()
     File sceneFile = new File("../src/main/groovy/shakespartner/plays/${sceneDef.playPackageName}/${sceneDef.sceneName}.groovy")
@@ -195,19 +176,25 @@ for (def sceneDef : scenes) {
 }
 
 for (def playDef : plays) {
-    println playDef
     String playClass = render(playTemplate, playDef)
-    println playClass
     File playFile = new File("../src/main/groovy/shakespartner/plays/${playDef.playClassName}.groovy")
     playFile.write playClass
 }
 
-println "LIST_OF_CHARACTERS"
-for (def character : characters.keySet().sort()) {
-    println character.replaceAll('"','')
+File listOfCharacters = new File("../src/main/speechAssets/customSlotTypes/LIST_OF_CHARACTERS")
+listOfCharacters.delete()
+listOfCharacters.createNewFile()
+listOfCharacters.withWriter { file ->
+    for (def character : characters.keySet().sort()) {
+        file.println character.replaceAll('"','')
+    }
 }
 
-println "LIST_OF_PLAYS"
-for (def playName : plays*.playName.sort()) {
-    println playName
+File listOfPlays = new File("../src/main/speechAssets/customSlotTypes/LIST_OF_PLAYS")
+listOfPlays.delete()
+listOfPlays.createNewFile()
+listOfPlays.withWriter { file ->
+    for (def playName : plays*.playName.sort()) {
+        file.println playName
+    }
 }
