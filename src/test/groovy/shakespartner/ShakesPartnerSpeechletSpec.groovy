@@ -4,6 +4,7 @@ import com.amazon.speech.speechlet.IntentRequest
 import com.amazon.speech.speechlet.LaunchRequest
 import com.amazon.speech.speechlet.Session
 import com.amazon.speech.speechlet.SpeechletResponse
+import groovy.transform.NotYetImplemented
 import org.junit.Rule
 import org.junit.rules.TestName
 import org.slf4j.Logger
@@ -145,7 +146,8 @@ class ShakesPartnerSpeechletSpec extends Specification {
       def response1 = run("PlayIntent", [Play: "much ado about nothing"])
 
       then:
-      response1.outputSpeech.text == "I don't recognize that.  You need to pick a character for whom you'll be reading."
+      response1.outputSpeech.text == "much ado about nothing is not a character that I recognize.  The closest matches I have are captain, second " +
+            "petitioner, and second attendant.  Please try saying your character again."
    }
 
    def "Handle getting scene when expecting a character"() {
@@ -210,6 +212,7 @@ class ShakesPartnerSpeechletSpec extends Specification {
       response2.outputSpeech.text ==~ /gower from henry the fifth is .* character.  Which act and scene\?/
    }
 
+   @NotYetImplemented
    def "Change character"() {
       when:
       run("CharacterIntent", [Character: "bernardo"])
@@ -219,6 +222,7 @@ class ShakesPartnerSpeechletSpec extends Specification {
       false
    }
 
+   @NotYetImplemented
    def "Change play"() {
       when:
       run("CharacterIntent", [Character: "francisco"])
@@ -229,6 +233,7 @@ class ShakesPartnerSpeechletSpec extends Specification {
       false
    }
 
+   @NotYetImplemented
    def "Change scene"() {
       when:
       run("CharacterIntent", [Character: "bernardo"])
@@ -247,6 +252,7 @@ class ShakesPartnerSpeechletSpec extends Specification {
       response3.outputSpeech.text != "Go back and memorize your line correctly"
    }
 
+   @NotYetImplemented
    def "handle multiple character name errors in a row"() {
       when:
       run("CharacterIntent", [Character: "bernardo"])
@@ -255,6 +261,7 @@ class ShakesPartnerSpeechletSpec extends Specification {
       false
    }
 
+   @NotYetImplemented
    def "handle multiple play name errors in a row"() {
       when:
       run("CharacterIntent", [Character: "bernardo"])
@@ -263,6 +270,7 @@ class ShakesPartnerSpeechletSpec extends Specification {
       false
    }
 
+   @NotYetImplemented
    def "handle multiple scene errors in a row"() {
       when:
       run("CharacterIntent", [Character: "bernardo"])
@@ -271,6 +279,7 @@ class ShakesPartnerSpeechletSpec extends Specification {
       false
    }
 
+   @NotYetImplemented
    def "handle multiple line errors in a row"() {
       when:
       run("CharacterIntent", [Character: "bernardo"])
@@ -279,6 +288,7 @@ class ShakesPartnerSpeechletSpec extends Specification {
       false
    }
 
+   @NotYetImplemented
    def "if the number of scenes is small, give the actual list of scenes if an invalid scene is provided"() {
       when:
       run("CharacterIntent", [Character: "bernardo"])
@@ -321,6 +331,7 @@ class ShakesPartnerSpeechletSpec extends Specification {
             "  Please try saying your character again."
    }
 
+   @NotYetImplemented
    def "When prompted for a character, the user should be able to ask for the list of characters in a given play"() {
       when:
       run("CharacterIntent", [Character: "bernardo"])
@@ -329,7 +340,24 @@ class ShakesPartnerSpeechletSpec extends Specification {
       false
    }
 
+   @NotYetImplemented
    def "If the user asks for the list of characters in a given play, the play should be set to that in the next step if the character given is in multiple plays"() {
+      when:
+      run("CharacterIntent", [Character: "bernardo"])
+
+      then:
+      false
+   }
+
+   def "Limit spoken lines by size"() {
+      when:
+      run("CharacterIntent", [Character: "bernardo"])
+
+      then:
+      false
+   }
+
+   def "If limiting spoken lines, preface with an indication that lines are missing"() {
       when:
       run("CharacterIntent", [Character: "bernardo"])
 
