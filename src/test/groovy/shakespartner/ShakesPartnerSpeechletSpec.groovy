@@ -349,7 +349,7 @@ class ShakesPartnerSpeechletSpec extends Specification {
       false
    }
 
-   def "Limit spoken lines by size"() {
+   def "Limit spoken lines by size to no more than 8000 characters"() {
       when:
       run("CharacterIntent", [Character: "bernardo"])
 
