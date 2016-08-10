@@ -6,12 +6,8 @@ import org.apache.commons.lang3.StringUtils
 
 @CompileStatic
 class Characters {
-   static List<Play> getPlays(String character) {
-      characters[character]?.collect {playName -> Plays.getPlay(playName)}
-   }
-
-   static String getPossilblePlays(String character) {
-      getPlays(character)*.name.join(" or ")
+   static List<String> getPossiblePlayNames(String character) {
+      characters[character]
    }
 
    static String getClosestCharacters(String character) {
@@ -27,7 +23,8 @@ class Characters {
    }
 
    static boolean isValid(String character, String play) {
-      getPlays(character)*.name.contains(play)
+      getPossiblePlayNames(character).contains(play)
    }
+
    static Map<String,List<String>> characters = $characters
 }

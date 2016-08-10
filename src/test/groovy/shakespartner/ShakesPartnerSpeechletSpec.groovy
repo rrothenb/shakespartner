@@ -60,7 +60,7 @@ class ShakesPartnerSpeechletSpec extends Specification {
       response1.outputSpeech.text ==~ /bernardo from hamlet is .* character.  Which act and scene\?/
       response2.outputSpeech.text == "hamlet by william shakespeare.  Act 1, scene 1.  Elsinore. A platform before " +
             "the castle.  FRANCISCO at his post. Enter to him BERNARDO"
-      response3.outputSpeech.text == "Nay, answer me: stand, and unfold yourself."
+      response3.outputSpeech.text == "Nay, answer me.  stand, and unfold yourself."
       response4.outputSpeech.text == "Long live the king!"
       response5.outputSpeech.text == "Bernardo"
    }
@@ -69,23 +69,23 @@ class ShakesPartnerSpeechletSpec extends Specification {
       when:
       def response1 = run("CharacterIntent", [Character: "doctor butts"])
       def response2 = run("SceneIntent", [Act: "5", Scene: "2"])
-      def response3 = run("LineIntent", [Words: "This is a piece of malice. I am glad I came this way so happily: the king Shall " +
+      def response3 = run("LineIntent", [Words: "This is a piece of malice. I am glad I came this way so happily.  the king Shall " +
             "understand it presently."])
       def response4 = run("LineIntent", [Words: "Ill show your grace the strangest sight"])
       def response5 = run("LineIntent", [Words: "I think your highness saw this many a day."])
-      def response6 = run("LineIntent", [Words: "There, my lord: The high promotion of his grace of Canterbury; Who holds his state at door, " +
+      def response6 = run("LineIntent", [Words: "There, my lord.  The high promotion of his grace of Canterbury; Who holds his state at door, " +
             "'mongst pursuivants, Pages, and footboys."])
 
       then:
       response1.outputSpeech.text ==~ /doctor butts from henry the eighth is .* character.  Which act and scene\?/
       !response1.shouldEndSession
       response2.outputSpeech.text == "henry the eighth by william shakespeare.  Act 5, scene 2.  Before the councilchamber." +
-            " Pursuivants, Pages,  and c.  Yes, my lord But yet I cannot help you.  Why  Enter DOCTOR BUTTS  Your " +
+            " Pursuivants, Pages,  and c.  Enter CRANMER  I hope I am not too late and yet the gentleman, That was sent to me from the council, prayd me To make great haste. All fast what means this Ho! Who waits there Sure, you know me  Enter Keeper  Yes, my lord But yet I cannot help you.  Why  Enter DOCTOR BUTTS  Your " +
             "grace must wait till you be calld for.  So."
       !response2.shouldEndSession
-      response3.outputSpeech.text == "Exit  [Aside]Tis Butts, The kings physician: as he passd along, How earnestly he cast his eyes upon me! Pray " +
+      response3.outputSpeech.text == "Exit  [Aside]Tis Butts, The kings physician.  as he passd along, How earnestly he cast his eyes upon me! Pray " +
             "heaven, he sound not my disgrace! For certain, This is of purpose laid by some that hate me God turn their hearts! I never sought " +
-            "their malice To quench mine honour: they would shame to make me Wait else at door, a fellowcounsellor, Mong boys, grooms, and lackeys." +
+            "their malice To quench mine honour.  they would shame to make me Wait else at door, a fellowcounsellor, Mong boys, grooms, and lackeys." +
             " But their pleasures Must be fulfilld, and I attend with patience.  Enter the KING HENRY VIII and DOCTOR BUTTS at a window above"
       !response3.shouldEndSession
       response4.outputSpeech.text == "Whats that, Butts"
@@ -137,7 +137,7 @@ class ShakesPartnerSpeechletSpec extends Specification {
 
 
       then:
-      response3.outputSpeech.text == "Hath he not passd the noble and the common  Cominius, no.  Have I had childrens voices  Tribunes, give way he" +
+      response3.outputSpeech.text == "Ha! what is that  It will be dangerous to go on.  no further.  What makes this change  The matter  Hath he not passd the noble and the common  Cominius, no.  Have I had childrens voices  Tribunes, give way he" +
             " shall to the marketplace.  The people are incensed against him."
    }
 

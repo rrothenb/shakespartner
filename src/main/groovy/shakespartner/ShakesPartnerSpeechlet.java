@@ -103,23 +103,22 @@ public class ShakesPartnerSpeechlet implements Speechlet  {
             }
             try {
                 log.info("about to getPlays for " + character);
-                List<Play> plays = Characters.getPlays(character);
-                log.info("plays: " + plays);
-                if (plays == null) {
-
+                List<String> playNames = Characters.getPossiblePlayNames(character);
+                log.info("plays: " + playNames);
+                if (playNames == null) {
                     return newAskResponse(
                             character + " is not a character that I recognize.  The closest matches I have are " + Characters.getClosestCharacters(character) + ".  Please try saying your character again.",
                             "I don't recognize that.  You need to pick a character for whom you'll be reading.");
                 }
-                else if (plays.size() > 1) {
-                    log.info("num plays: " + plays.size());
+                else if (playNames.size() > 1) {
+                    log.info("num plays: " + playNames.size());
                     session.setAttribute("character", character);
                     return newAskResponse(
                             character + " is in multiple plays.  Which one do you want?",
                             "I don't recognize that.  You need to pick a play from which you'll be reading for " + character);
                 }
                 else {
-                    playName = plays.get(0).getName();
+                    playName = playNames.get(0);
                     log.info("playName: " + playName);
                     session.setAttribute("character", character);
                     session.setAttribute("play", playName);
@@ -155,7 +154,7 @@ public class ShakesPartnerSpeechlet implements Speechlet  {
             }
             else {
                 return newAskResponse(
-                        character + " doesn't appear in " + playName + ".  Please pick an appropriate play.  You can choose from " + Characters.getPossilblePlays(character),
+                        character + " doesn't appear in " + playName + ".  Please pick an appropriate play.  You can choose from " + String.join(" or ", Characters.getPossiblePlayNames(character)),
                         "I don't recognize that.  You need to pick a play from which you'll be reading for " + character);
             }
         }
@@ -182,8 +181,11 @@ public class ShakesPartnerSpeechlet implements Speechlet  {
                                 "I don't recognize that.  You need to pick an act and a scene from " + playName);
                     } else {
                         String response =
-                                playName + " by william shakespeare.  Act " + scene.getAct() + ", scene " + scene.getScene() + ".  " +
-                                        scene.getLocation() + "  " + String.join("  ", startingText);
+                                playName + " by william shakespeare.  Act " + scene.getAct() + ", scene " + scene.getScene() + ".  " + scene.getLocation();
+                        if (!response.endsWith(".")) {
+                            response += ".";
+                        }
+                        response += "  " + String.join("  ", startingText);
                         log.info(response);
                         log.info("length: " + response.length());
                         return newAskResponse(
@@ -233,9 +235,10 @@ public class ShakesPartnerSpeechlet implements Speechlet  {
             log.info(wordsDM);
             int distance = StringUtils.getLevenshteinDistance(yourLineDM, wordsDM);
             log.info("Distance :" + distance);
-            log.info("length: " + words.length());
-            int percentDistance = distance*100/yourLine.length();
-            if (percentDistance < 10) {
+            log.info("length: " + yourLineDM.length());
+            int percentDistance = distance*100/yourLineDM.length();
+            percentDistance = (int)(percentDistance/(1.0/yourLineDM.length()+1));
+            if (percentDistance < 25) {
                 session.setAttribute("lineNumber", lineNumber+1);
                 List<String> nextLines = new ArrayList<String>();
                 if (collectLines(session, nextLines)) {
@@ -251,12 +254,12 @@ public class ShakesPartnerSpeechlet implements Speechlet  {
                 }
             }
             else {
-                if (percentDistance < 25) {
+                if (percentDistance < 50) {
                     return newAskResponse(
                             "Close but not quite.  Try saying your line again",
                             "Say your line");
                 }
-                else if (percentDistance < 55) {
+                else if (percentDistance < 75) {
                     return newAskResponse(
                             "Nope.  You may want to study the text a little bit more",
                             "Say your line");
@@ -278,6 +281,8 @@ public class ShakesPartnerSpeechlet implements Speechlet  {
         Integer lineNumber = (Integer)session.getAttribute("lineNumber");
         String playName = (String)session.getAttribute("play");
         Map<String,Integer> sceneId = (Map<String,Integer>)session.getAttribute("scene");
+        int collectedLineSize = 0;
+        boolean linesTruncated = false;
         if (lineNumber == null) {
             lineNumber = 0;
         }
@@ -285,16 +290,23 @@ public class ShakesPartnerSpeechlet implements Speechlet  {
         for (int i=lineNumber;i<lines.size();i++) {
             Map text = lines.get(i);
             if (text.get("speaker") != null && text.get("speaker").toString().equals(character)) {
+                log.info("collectedLineSize: " + collectedLineSize);
                 log.info("lineNumber: " + i);
                 session.setAttribute("lineNumber", i);
                 return false;
             }
             else {
-                collectedLines.add(text.get("text").toString());
-                if (collectedLines.size() > 5) {
-                    collectedLines.remove(0);
+                String line = text.get("text").toString().replaceAll(":", ". ");
+                while (collectedLineSize + line.length() > 7900 && !collectedLines.isEmpty()) {
+                    collectedLineSize -= collectedLines.remove(0).length();
+                    linesTruncated = true;
                 }
+                collectedLines.add(line);
+                collectedLineSize += line.length();
             }
+        }
+        if (linesTruncated) {
+            collectedLines.add(0, "skipping ahead.");
         }
         return true;
     }
@@ -329,6 +341,7 @@ public class ShakesPartnerSpeechlet implements Speechlet  {
     }
 
     private SpeechletResponse newAskResponse(String stringOutput, String repromptText) {
+        log.info("Response: " + stringOutput);
         SpeechletResponse response = newAskResponse(stringOutput, false, repromptText, false);
         return response;
     }
