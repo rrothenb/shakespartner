@@ -9,11 +9,12 @@ repositories {
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy:2.4.5'
+    testCompile 'org.codehaus.groovy:groovy:2.4.5'
     compile 'com.amazon.alexa:alexa-skills-kit:1.1.2'
     compile 'com.amazonaws:aws-lambda-java-core:1.0.0'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.6.3'
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
 
     compile 'log4j:log4j:1.2.17'

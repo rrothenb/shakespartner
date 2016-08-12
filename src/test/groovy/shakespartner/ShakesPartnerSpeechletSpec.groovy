@@ -116,7 +116,7 @@ class ShakesPartnerSpeechletSpec extends Specification {
 
       then:
       response2.outputSpeech.text == "You need to pick an act and a scene from hamlet that hamlet actually appears in.  The first scene hamlet is " +
-            "in is act 1 scene 2"
+            "in is Act 1, scene 2"
    }
 
    def "If you get the line wrong it will tell you so"() {
